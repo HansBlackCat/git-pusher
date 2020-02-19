@@ -52,7 +52,8 @@ fn main() ->io::Result<()> {
 
     let current_dir2 = env::current_dir()?;
     for entry in fs::read_dir(&current_dir2)? {
-        println!("Is it path?>> {:?}\n{:?}", &current_dir2 ,fs::metadata(entry.unwrap().path())?.is_file())
+        println!("Is it path?>> {:?}", entry);
+        println!("Is it path?>> {:?}", fs::metadata(entry.unwrap().path())?.is_file());
     }
 
     for entry in fs::read_dir(current_dir)? {
@@ -62,7 +63,7 @@ fn main() ->io::Result<()> {
         // println!("{:?}", metadata.is_dir());
         if metadata.is_file() {
             git_matcher(&entry_in_string, &local);
-            println!("Process..> {:?}", entry_in_string);
+            println!("Process..> {:?}", &entry_in_string);
             COUNTER = COUNTER+1;
         }
     }
