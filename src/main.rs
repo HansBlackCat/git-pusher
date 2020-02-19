@@ -62,23 +62,12 @@ fn main() ->io::Result<()> {
     let local: String = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
     println!("{:?}", local);
 
-    // START DEBUG: 
-    /*
-    let current_dir2: std::path::PathBuf = env::current_dir()?;
-    println!("----{:?}", &current_dir2);
-    for entry in fs::read_dir(&current_dir2)? {
-        println!("Is it path?>> {:?}", entry);
-        println!("Is it path?>> {:?}", fs::metadata(entry.unwrap().path())?.is_dir());
-    }
-    */
-    // END DEBUG
-
+    // main
     let current_dir: std::path::PathBuf = env::current_dir()?; 
     for entry in fs::read_dir(&current_dir)? {
         let entry_in_string = entry.unwrap().path();
-        // println!("{:?}", entry_in_string);
+        // collect directories' info
         let metadata = fs::metadata(&entry_in_string)?;
-        // println!("{:?}", metadata.is_dir());
         if metadata.is_dir() {
             print!("{:?}\n> Processing...", &entry_in_string);
             git_matcher(&entry_in_string, &local);
@@ -92,29 +81,13 @@ fn main() ->io::Result<()> {
     Ok(())
 }
 
-/*
-fn git_matcher(path: &std::path::PathBuf, msg: &String) {
-    match Command::new("sh").output() {
-        Ok(_) => {
-            match Command::new("cd").arg(path).output() {
-                Ok(_) => {
-                    match Command::new("git").arg("add").arg("--a").output() {
-                        Ok(_) => {
-                            match Command::new("git").arg("commit").arg("-m").arg(msg).output() {
-                                Ok(_) => {
-                                    Command::new("git").arg("push").output().expect("Fail to push");
-                                    ()
-                                },
-                                Err(_) => {println!("Error in `git commit`"); ()},
-                            }
-                        }
-                        Err(_) => {println!("Error in `git add`"); ()}
-                    }
-                },
-                Err(_) => {println!("Error in `cd`"); ()},
-            }
-        }
-        Err(_) => {println!("Error in `sh`"); ()},
+    // START DEBUG: 
+    /*
+    let current_dir2: std::path::PathBuf = env::current_dir()?;
+    println!("----{:?}", &current_dir2);
+    for entry in fs::read_dir(&current_dir2)? {
+        println!("Is it path?>> {:?}", entry);
+        println!("Is it path?>> {:?}", fs::metadata(entry.unwrap().path())?.is_dir());
     }
-}
-*/
+    */
+    // END DEBUG
