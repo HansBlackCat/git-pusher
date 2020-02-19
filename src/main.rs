@@ -57,9 +57,9 @@ fn main() ->io::Result<()> {
         // println!("{:?}", metadata.is_dir());
         if metadata.is_file() {
             git_matcher(&entry_in_string, &local);
+            println!("Process..> {:?}", entry_in_string);
+            COUNTER = COUNTER+1;
         }
-        println!("Debug> {:?}", entry_in_string);
-        COUNTER = COUNTER+1;
     }
 
     /*
