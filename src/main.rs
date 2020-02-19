@@ -58,6 +58,7 @@ fn main() ->io::Result<()> {
         if metadata.is_file() {
             git_matcher(&entry_in_string, &local);
         }
+        println!("Debug> {:?}", entry_in_string);
         COUNTER = COUNTER+1;
     }
 
