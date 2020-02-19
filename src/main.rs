@@ -1,4 +1,4 @@
-#![allow(dead_code)]
+#![allow(dead_code, non_snake_case)]
 extern crate chrono;
 
 use std::io;
@@ -40,6 +40,8 @@ fn git_matcher(path: &std::path::PathBuf, msg: &String) {
 fn main() ->io::Result<()> {
     os_checker();
 
+    let mut COUNTER: usize = 0;
+
     let local: String = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
     println!("{:?}", local);
 
@@ -56,6 +58,7 @@ fn main() ->io::Result<()> {
         if metadata.is_file() {
             git_matcher(&entry_in_string, &local);
         }
+        COUNTER = COUNTER+1;
     }
 
     /*
@@ -77,8 +80,9 @@ fn main() ->io::Result<()> {
     } else {
         panic!("Only in MacOs")
     };
-   // output.stdout;
-   */
-
-   Ok(())
+    // output.stdout;
+    */
+    println!("Run through {} entry", COUNTER);
+    println!("Done!");
+    Ok(())
 }
