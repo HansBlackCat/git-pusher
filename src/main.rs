@@ -51,8 +51,8 @@ fn main() ->io::Result<()> {
     println!("Current directory is: \n{:?}\n", current_dir);
 
     let current_dir2 = env::current_dir()?;
-    for entry in fs::read_dir(current_dir2)? {
-        println!("Is it path?>>{:?}", fs::metadata(entry.unwrap().path())?.is_file())
+    for entry in fs::read_dir(&current_dir2)? {
+        println!("Is it path?>> {:?}\n{:?}", &current_dir2 ,fs::metadata(entry.unwrap().path())?.is_file())
     }
 
     for entry in fs::read_dir(current_dir)? {
