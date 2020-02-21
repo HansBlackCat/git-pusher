@@ -13,36 +13,6 @@ use std::{env, fs};
 use std::path::Path;
 use chrono::prelude::*;
 
-
-/*
-fn os_checker() {
-    if cfg!(target_os = "macos") {
-        println!("{}\n{}", RGB(16, 200, 132).paint("<<< Your OS: macos >>>"), Red.paint("Running Process.."));
-    } else if cfg!(target_os = "linux") {
-        println!("<<< Your OS: linux >>>\nCan't sure it works on linux..");
-    } else {
-        panic!("You can't run this program in this os");
-    }
-}
-*/
-/*
-fn mac_git_matcher(path: &std::path::PathBuf, msg: &String) {
-    let path_string: String = path.to_str().unwrap().to_owned();
-    match Command::new("git").arg("-C").arg(&path_string).arg("add").arg(".").output() {
-        Ok(_) => {
-            match Command::new("git").arg("-C").arg(&path_string).arg("commit").arg("-m").arg(msg).output() {
-                Ok(_) => {
-                    Command::new("git").arg("-C").arg(&path_string).arg("push").output().expect("Fail to push");
-                    ()
-                },
-                Err(_) => {println!("Error in `git commit`"); ()},
-            }
-        }
-        Err(_) => {println!("Error in `git add`"); ()}
-    }
-}
-*/
-
 fn main() ->io::Result<()> {
     // << Check if OS is macOS >>
     let os_key = os_checker();
