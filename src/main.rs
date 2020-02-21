@@ -11,7 +11,7 @@ use ansi_term::Color::*;
 
 fn os_checker() {
     if cfg!(target_os = "macos") {
-        println!("{}\n{}", Cyan.paint("<<< Your OS: macos >>>"), Red.paint("Running Process.."));
+        println!("{}\n{}", RGB(16, 200, 132).paint("<<< Your OS: macos >>>"), Red.paint("Running Process.."));
     } else if cfg!(target_os = "linux") {
         println!("<<< Your OS: linux >>>\nCan't sure it works on linux..");
     } else {
