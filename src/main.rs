@@ -2,13 +2,19 @@
 extern crate chrono;
 extern crate ansi_term;
 
+mod os;
+mod gitmain;
+
+use crate::os::*;
+use crate::gitmain::*;
+
 use std::io;
 use std::{env, fs};
 use std::path::Path;
 use chrono::prelude::*;
-use std::process::Command;
-use ansi_term::Color::*;
 
+
+/*
 fn os_checker() {
     if cfg!(target_os = "macos") {
         println!("{}\n{}", RGB(16, 200, 132).paint("<<< Your OS: macos >>>"), Red.paint("Running Process.."));
@@ -18,8 +24,9 @@ fn os_checker() {
         panic!("You can't run this program in this os");
     }
 }
-
-fn git_matcher(path: &std::path::PathBuf, msg: &String) {
+*/
+/*
+fn mac_git_matcher(path: &std::path::PathBuf, msg: &String) {
     let path_string: String = path.to_str().unwrap().to_owned();
     match Command::new("git").arg("-C").arg(&path_string).arg("add").arg(".").output() {
         Ok(_) => {
@@ -34,11 +41,11 @@ fn git_matcher(path: &std::path::PathBuf, msg: &String) {
         Err(_) => {println!("Error in `git add`"); ()}
     }
 }
-
+*/
 
 fn main() ->io::Result<()> {
     // << Check if OS is macOS >>
-    os_checker();
+    let os_key = os_checker();
 
     // Entry counter
     let mut COUNTER: usize = 0;
@@ -72,7 +79,7 @@ fn main() ->io::Result<()> {
         let metadata = fs::metadata(&entry_in_string)?;
         if metadata.is_dir() {
             print!("{:?}\n> Processing...", &entry_in_string);
-            git_matcher(&entry_in_string, &local);
+            mac_git_matcher(&entry_in_string, &local);
             println!("END");
             COUNTER = COUNTER+1;
         }
