@@ -1,15 +1,17 @@
 #![allow(dead_code, non_snake_case)]
 extern crate chrono;
+extern crate ansi_term;
 
 use std::io;
 use std::{env, fs};
 use std::path::Path;
 use chrono::prelude::*;
 use std::process::Command;
+use ansi_term::Color::*;
 
 fn os_checker() {
     if cfg!(target_os = "macos") {
-        println!("<<< Your OS: macos >>>\nRunning Process..");
+        println!("{}",Red.paint("<<< Your OS: macos >>>\nRunning Process.."));
     } else if cfg!(target_os = "linux") {
         println!("<<< Your OS: linux >>>\nCan't sure it works on linux..");
     } else {
