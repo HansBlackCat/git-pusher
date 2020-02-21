@@ -4,24 +4,24 @@ extern crate ansi_term;
 
 mod os;
 mod gitmain;
+mod flagcontrol;
 
 use crate::os::*;
 use crate::gitmain::*;
+use crate::flagcontrol::chronoTime::*;
 
 use std::io;
 use std::{env, fs};
 use std::path::Path;
-use chrono::prelude::*;
+
 
 fn main() ->io::Result<()> {
     // << Check if OS is macOS >>
+    // Later use
     let os_key = os_checker();
 
     // Entry counter
     let mut COUNTER: usize = 0;
-
-    // std::result::Result<std::path::PathBuf, std::io::Error>
-    // PathBuf or Error
     
     // Argument parsing
     let args: Vec<String> = env::args().collect();
@@ -37,9 +37,10 @@ fn main() ->io::Result<()> {
     let change_root_dir_to = Path::new(&current_dir);
     env::set_current_dir(&change_root_dir_to)?;
 
-    // Get User's local time
-    let local: String = Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
-    println!("{:?}", local);
+    // ----------------------------------------------------------------
+    // Flag control
+    // ----------------------------------------------------------------
+    let flage_arg1 = chronoTime();
 
     // main
     let current_dir: std::path::PathBuf = env::current_dir()?; 
@@ -49,7 +50,7 @@ fn main() ->io::Result<()> {
         let metadata = fs::metadata(&entry_in_string)?;
         if metadata.is_dir() {
             print!("{:?}\n> Processing...", &entry_in_string);
-            mac_git_matcher(&entry_in_string, &local);
+            mac_git_matcher(&entry_in_string, &flage_arg1);
             println!("END");
             COUNTER = COUNTER+1;
         }
