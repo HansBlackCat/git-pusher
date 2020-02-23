@@ -2,11 +2,11 @@
 extern crate chrono;
 extern crate ansi_term;
 
-mod os;
+mod base;
 mod gitmain;
 mod flagcontrol;
 
-use crate::os::*;
+use crate::base::*;
 use crate::gitmain::*;
 use crate::flagcontrol::chronoTime::*;
 
@@ -42,7 +42,9 @@ fn main() ->io::Result<()> {
     // ----------------------------------------------------------------
     let flage_arg1 = chronoTime();
 
+    // ----------------------------------------------------------------
     // main
+    // ----------------------------------------------------------------
     let current_dir: std::path::PathBuf = env::current_dir()?; 
     for entry in fs::read_dir(&current_dir)? {
         let entry_in_string = entry.unwrap().path();
